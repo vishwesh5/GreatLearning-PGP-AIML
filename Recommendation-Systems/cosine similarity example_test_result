@@ -1,0 +1,45 @@
+TF for Document 2
+
+Document2	the	unexamined	life	is	not	worth	living
+Term Frequency	1	1		1	1	1	1	1
+
+TF for Document 3
+
+Document3	never	stop	learning
+Term Frequency	1	1	1
+
+
+Normalized TF for Document 2
+
+Document2	the	      unexamined	life	              is	not		worth		living
+Normalized TF	0.142857	0.142857	0.142857	0.142857	0.142857	0.142857	0.142857
+
+Normalized TF for Document 3
+
+Document3	never		stop		learning
+Normalized TF	0.333333	0.333333	0.333333
+
+Dot product(testdoc, Document2) 
+     = ((0.5) * (0.142857) + (0.5)*(0))
+     = 0.0714285
+
+||testdoc|| = sqrt((0.5)2 + (0.5)2) = 0.707106781
+
+||Document2|| = sqrt((0.142857)2) = sqrt(0.020408122) = 0.142856998
+
+Cosine Similarity(testdoc, Document2) = 0.0714285 / (0.707106781) * (0.142856998)
+                                        = 0.0714285/ 0.101015152
+                                        = 0.707106791
+
+
+Dot product(testdoc, Document2) 
+     = ((0.5) * (0.333333) + (0.5)*(0))
+     = 0.1666665
+
+||testdoc|| = sqrt((0.5)2 + (0.5)2) = 0.707106781
+
+||Document3|| = sqrt((0.333333)2) = sqrt(0.111110889) = 0.333333
+
+Cosine Similarity(testdoc, Document3) = 0.1666665 / (0.707106781) * (0.333333)
+                                        = 0.1666665 / 0.235702025
+                                        = 0.70710678

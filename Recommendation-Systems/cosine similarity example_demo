@@ -1,0 +1,43 @@
+test doc : life learning
+Document 1: The game of life is a game of everlasting learning
+Document 2: The unexamined life is not worth living
+Document 3: Never stop learning
+
+TF for test doc :
+Test Doc       life learning
+Term Frequency  1	1
+
+TF for Document 1
+
+Document1	the	game	of	life	is	a	everlasting	learning
+Term Frequency	1	2	2	1	1	1	1		1
+
+
+NormalizedTF for test doc :
+Test Doc       life learning
+NormalizedTF   .5	.5
+
+Normalized TF for Document 1
+
+Document1	the	game	of	life	is	a	everlasting	learning
+Normalized TF	0.1	0.2	0.2	0.1	0.1	0.1	0.1	0.1
+
+cosine similarity
+
+Cosine Similarity (d1, d2) =  Dot product(d1, d2) / ||d1|| * ||d2||
+
+Dot product (d1,d2) = d1[0] * d2[0] + d1[1] * d2[1] * … * d1[n] * d2[n]
+||d1|| = square root(d1[0]2 + d1[1]2 + ... + d1[n]2)
+||d2|| = square root(d2[0]2 + d2[1]2 + ... + d2[n]2)
+
+Dot product(testdoc, Document1) 
+     = ((0.5) * (0.1) + (0.5)*(0.1))
+     = 0.1
+
+||testdoc|| = sqrt((0.5)2 + (0.5)2) = 0.707106781
+
+||Document1|| = sqrt((0.1)2 + (0.1)2) = 0.141421356
+
+Cosine Similarity(Query, Document) = 0.1 / (0.707106781) * (0.141421356)
+                                        = 0.1 / 0.1
+                                        = 1
