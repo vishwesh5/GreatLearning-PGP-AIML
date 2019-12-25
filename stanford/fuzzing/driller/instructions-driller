@@ -1,0 +1,29 @@
+#https://blog.grimm-co.com/post/guided-fuzzing-with-driller/
+sudo apt-get update
+sudo apt install build-essential libtool-bin automake bison flex python libglib2.0-dev
+cd ~/afl-2.52b/qemu_mode
+wget -O patches/memfd.diff https://salsa.debian.org/qemu-team/qemu/raw/ubuntu-bionic-2.11/debian/patches/ubuntu/lp1753826-memfd-fix-configure-test.patch
+sed -i '/syscall.diff/a patch -p1 <../patches/memfd.diff || exit 1' build_qemu_support.sh
+./build_qemu_support.sh
+sudo apt install python3 virtualenv git python3-dev
+cd ~/workshop
+#mkdir driller
+cd driller
+virtualenv -ppython3 venv
+source venv/bin/activate
+pip install git+https://github.com/angr/archinfo
+pip install git+https://github.com/angr/cle
+pip install git+https://github.com/angr/claripy
+pip install git+https://github.com/angr/angr
+pip install git+https://github.com/angr/tracer
+pip install git+https://github.com/shellphish/driller
+# ~/workshop/driller/buggy.c
+gcc -o buggy buggy.c
+echo 123456 | ./buggy
+echo 7/42a8 | ./buggy
+mkdir -p workdir/input
+echo 'init' > workdir/input/seed1
+sudo su
+echo core | sudo tee /proc/sys/kernel/core_pattern
+exit
+~/afl-2.52b/afl-fuzz -M fuzzer-master -i workdir/input/ -o workdir/output/ -Q ./buggy

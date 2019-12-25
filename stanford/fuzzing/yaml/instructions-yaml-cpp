@@ -1,0 +1,23 @@
+sudo apt-get update
+sudo apt-get install cmake
+git clone https://github.com/jbeder/yaml-cpp.git
+cd yaml-cpp
+mkdir build
+cd build
+cmake -DCMAKE_CXX_COMPILER=afl-clang-fast++ ..
+make
+cd ..
+mkdir testcase
+vi 1
+
+# Testcase - 1
+hr:  65    # Home runs
+avg: 0.278 # Batting average
+rbi: 147   # Runs Batted In
+
+cd ..
+mkdir testcasemin
+afl-tmin -i testcase/1 -o testcasemin/1.min -- util/parse
+# for i in *; do afl-tmin -i $i -o $i.min -- ../util/parse; done;
+# mkdir ~/testcases && cp *.min ~/testcases
+afl-fuzz -i testcasemin/ -o results -- ./util/parse
