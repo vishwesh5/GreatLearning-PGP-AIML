@@ -1,0 +1,16 @@
+#cd /sys/devices/system/cpu
+#echo performance | tee cpu*/cpufreq/scaling_governor
+sudo apt-get install gcc gdb
+sudo apt-get install sqlite3 libsqlite3-dev libpcap-dev
+sudo apt-get update
+wget http://www.tcpdump.org/release/tcpdump-4.9.2.tar.gz
+tar xzf tcpdump-4.9.2.tar.gz
+cd tcpdump-4.9.2
+mkdir testcases result
+cp ~/afl-2.52b/testcases/others/pcap/small_capture.pcap testcases/
+CC=afl-gcc ./configure
+make
+sudo su
+echo core >/proc/sys/kernel/core_pattern
+exit
+afl-fuzz -i testcases/ -o result/ ./tcpdump -nr @@

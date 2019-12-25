@@ -1,0 +1,10 @@
+#cd /sys/devices/system/cpu
+#echo performance | tee cpu*/cpufreq/scaling_governor
+afl-gcc samplecode.c -o a.out
+mkdir testcases
+echo "hello" > testcases/foo
+sudo su
+echo core >/proc/sys/kernel/core_pattern
+exit
+mkdir findings
+afl-fuzz -i testcases -o findings -- ./a.out
